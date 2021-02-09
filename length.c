@@ -5,13 +5,13 @@
 #define MAX_LENGTH 64
 #define MAX_COUNT 100
 
-void smallest_word(char *pointer[ ]);
+void smallest_word(char* (pointer[MAX_COUNT]));
 
 int main(){
 
 	char table[MAX_COUNT][MAX_COUNT];
 
-	char* ptr[MAX_COUNT];
+	char* (ptr[MAX_COUNT]);
 
 	int count ,i, l ;
 	//문자열 만드려면 배열을 만들어야하는데 , 배열을 얼마나 많이 만들어야하지?
@@ -34,7 +34,7 @@ int main(){
 	}
 
 
-	smallest_word(ptr[count]);
+	smallest_word(ptr);
 
 
 
@@ -50,7 +50,7 @@ return 0;
 
 }
 
-void smallest_word(char *pointer[ ]){
+void smallest_word(char* (pointer[MAX_COUNT])){
 
 	int step ,i ;
 	char* temp_str;
