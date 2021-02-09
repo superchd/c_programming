@@ -23,8 +23,9 @@ int main(){
 
 		l = strlen(table[count]);
 
-		if( l ==5){
+		if( l ==5 ){
 		// 마지막 널문자도 고려해야 하기 때문에 크기는 5로 받는다.
+			ptr[count] = table[count];
 			break;
 		}
         }
@@ -54,7 +55,7 @@ void smallest_word(char* (pointer[MAX_COUNT])){
 
 	int step ,i ;
 	char* temp_str;
-	
+//포인터는 언제 read-only 메모리이더라	
 	for(step = 0; step < MAX_COUNT - 1 ; step++){
 		for(i=0; i<MAX_COUNT - 1 -step ;i++){
 
