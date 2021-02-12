@@ -3,16 +3,14 @@
 
 int main(int argc, char* argv[])
 {	
-	char str[100];
+
 
 	int i;
 
-	for (i = 0; i < argc; i++){
-		str[i] = *argv[i];
-	}
+	
 
-	for(i ; i > 0; i--)
-		printf("%c",str[i]);
+	for(i = argc-1 ; i > 0; i--)
+		printf("%s",argv[i]);
 
 	return 0;
 
