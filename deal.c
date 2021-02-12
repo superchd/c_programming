@@ -11,36 +11,30 @@
 int	main(void)
 {
 	int i;
-	i = 0;
-	int SUIT = 0;
-	int RANK = 0;
-	bool in_hand[MAX_SUITS][MAX_RANKS] = "false";
+	int num_cards ;
+	int suit;
+	int rank;
+	const char rank_code [] = {'2','3','4','5','6','7','8'.'9','t','j','k','q','a'};
+	const char suit_code [] = {'c','d','h','s'};
+
+	bool in_hand[MAX_SUITS][MAX_RANKS] = {false};
 	char selects[5][2];
 
-	srand(time(NULL));
+	srand(unsigned(time(NULL)));
 
-	for (i;i < 5;i++)
-                
-		SUIT = rand() % 4;
-		RANK = rand() % 13;
+	printf("Enter card numbers.");
+	scanf("%d",num_cards);
 
-		scanf ("%d%d", &SUIT, &RANK);
+	while(num_cards > 0){
+		suit = rand() % 4 ;
+		rank = rand() % 13 ;
+		if(!in_hand[suit][rank]){
+			in_hand[suit][rank] = "true";
+			num_cards--;
+		}
+	}
 
-		if (SUIT < 4 && SUIT >= 0 ){
-			if (RANK < 13 && RANK >= 0){
-				if(in_hand[SUIT][RANK] = "true"){
-					printf("Duplicated card");
-					break;}
-				else{
-					in_hand[SUIT][RANK] = "true";}}
-					
-			else{
-				printf("Retry");
-				break;}}
 
-		else{ 
-			printf("Retry");
-			break;}
 
 	
 	return 0;
