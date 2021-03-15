@@ -6,7 +6,7 @@
 /*   By: hchd <hchd@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 19:02:07 by hchd              #+#    #+#             */
-/*   Updated: 2021/03/08 21:05:52 by hchd             ###   ########.fr       */
+/*   Updated: 2021/03/15 09:55:45 by hchd             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ int	ft_atoi_base(char *str, char *base)
 	str_len = ft_strlen(str);
 	if (base_len == -1)
 	{
-		printf("invalid parameter");
 		return (-1);
 	}
 	while (--str_len != -1)
