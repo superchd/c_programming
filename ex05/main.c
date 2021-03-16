@@ -25,8 +25,8 @@ int main(void)
 	printf("T4: %d\n", ft_atoi_base("", "1"));
 	printf("T5: %d\n", ft_atoi_base("12345", ""));
 	printf("T6: %d\n", ft_atoi_base("12345", "a12356a7"));
-	printf("T7: %d\n", ft_atoi_base("     \t\v\f     +---------++-1235aaa776644", "a123567"));
-	printf("T7: %d\n", ft_atoi_base("     \n\r\t     +---------++-1235aaa7766"  , "a123567"));
+	printf("T7: %d\n", ft_atoi_base("1a7644", "a123567"));
+	printf("T7: %d\n", ft_atoi_base("1a76"  , "a123567"));
 	printf("T8: %d\n", ft_atoi_base("            +----8----++-1235aaa7766", "a123567"));
 	return 0;
 }
