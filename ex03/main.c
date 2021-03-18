@@ -26,8 +26,8 @@ int		main(void)
 	char* texts1[] = { "a", "b", "c", "d", "e", "f", "g", "h", "i", "k" };
 	do_test(10, texts1, ", ");
 	char* texts2[] = { };
-//	do_test(0, texts2, ", ");
-//	do_test(-1, texts2, ", ");
+	do_test(0, texts2, ", ");
+	do_test(-1, texts2, ", ");
 	char* texts3[] = { "adasdsa", "", "", "zxcva", "12134", "", "@@", "!", "??", "Hello World!" };
 	do_test(9, texts3, " -@- ");
 	char* texts4[] = { "Doom2 - Hell on earth" };

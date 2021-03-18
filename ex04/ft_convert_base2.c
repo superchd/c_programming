@@ -6,19 +6,13 @@
 /*   By: hchd <hchd@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 01:43:05 by hchd              #+#    #+#             */
-/*   Updated: 2021/03/16 02:00:16 by hchd             ###   ########.fr       */
+/*   Updated: 2021/03/17 18:43:27 by hchd             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdbool.h>
 
-bool	is_white_space(char str)
-{
-	if (('\t' <= str && str <= '\r') || str == ' ')
-		return (true);
-}
-
-bool	is_base_number(char str, char *base)
+bool	is_base(char str, char *base)
 {
 	int cnt;
 
@@ -34,7 +28,7 @@ bool	is_base_number(char str, char *base)
 		return (false);
 }
 
-int	check_right_base(char *base)
+int	check_base(char *base)
 {
 	int i;
 	int j;
@@ -46,7 +40,7 @@ int	check_right_base(char *base)
 			return (-1);
 		if ((*(base + i) >= '\t' && *(base + i) <= '\r'))
 			return (-1);
-		if (*(base + i) == ' ' || !is_base(*(base + i), base))
+		if (*(base + i) == ' ')
 			return (-1);
 		j = i + 1;
 		while (*(base + j))
@@ -59,40 +53,15 @@ int	check_right_base(char *base)
 	}
 	return (i);
 }
-int	power(int base_len, int m)
+
+bool	exception(char *base_from, char *base_to)
 {
-	int answer;
+	int	from_len;
+	int	to_len;
 
-	answer = 1;
-	if (m == 0)
-		return (1);
-	else
-	{
-		answer = base_len * power(base_len, m - 1);
-	}
-	return (answer);
-}
-
-int	transfer_to_int(char str, char *clear_str, char *base, int base_len)
-{
-	int	index;
-	int	len;
-	int	i;
-
-	i = 0;
-	index = 0;
-	len = 0;
-	while (*base)
-	{
-		if (str == *base)
-			break;
-		index++;
-		base++;
-	}
-	while (*clear_str && is_base(*clear_str, base))
-	{
-			clear_str++;
-			len++;
-	}
-	return (index * power(base_len, len - 1));
+	from_len = check_base(base_from);
+	to_len = check_base(base_to);
+	if (from_len <= 1 || to_len <= 1)
+		return (false);
+	return (true);
 }

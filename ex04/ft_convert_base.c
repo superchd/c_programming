@@ -1,14 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_convert_base.c                                  :+:      :+:    :+:   */
+/*   new.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hchd <hchd@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 01:36:53 by hchd              #+#    #+#             */
-/*   Updated: 2021/03/16 02:10:10 by hchd             ###   ########.fr       */
+/*   Updated: 2021/03/17 18:46:24 by hchd             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include <stdbool.h>
+#include <stdlib.h>
+
+bool	is_base(char str, char *base);
+int	check_base(char *base);
+bool	exception(char *base_from, char *base_to);
 
 int	power(int base_len, int m)
 {
@@ -24,7 +31,7 @@ int	power(int base_len, int m)
 	return (answer);
 }
 
-int	transfer_to_int(char str, char *clear_str, char *base, int base_len)
+int		transfer_to_int(char str, char *clear_str, char *base, int base_len)
 {
 	int	index;
 	int	len;
@@ -33,34 +40,30 @@ int	transfer_to_int(char str, char *clear_str, char *base, int base_len)
 	i = 0;
 	index = 0;
 	len = 0;
-	while (*base)
+	while (base[index])
 	{
-		if (str == *base)
-			break;
+		if (str == base[index])
+			break ;
 		index++;
-		base++;
 	}
-	while (*clear_str && is_base(*clear_str, base))
+	while (clear_str[i])
 	{
-			clear_str++;
-			len++;
+		if (!is_base(clear_str[i], base))
+			break;
+		i++;
 	}
-	return (index * power(base_len, len - 1));
+	return (index * power(base_len, i  - 1));
 }
 
-int	ft_atoi_base(char *str, char *base)
+int		ft_atoi_base(char *str, char *base)
 {
 	int	base_len;
 	int	sum;
-	int sign;
-	int i;
-
-	i = 0;
+	int	sign;
+	
 	sign = 1;
 	sum = 0;
 	base_len = check_base(base);
-	if (base_len == -1)
-		return (0);
 	while (('\t' <= *str && *str <= '\r') || *str == ' ')
 		++str;
 	while (*str == '-' || *str == '+')
@@ -68,24 +71,61 @@ int	ft_atoi_base(char *str, char *base)
 			sign *= -1;
 	while (*str)
 	{
-		if (is_base(*str, base) == false)
-			return (sign * sum);
+		if (!is_base(*str, base))
+				break;
 		sum += transfer_to_int(*str, str, base, base_len);
-		i++;
 		str++;
 	}
 	return (sign * sum);
 }
 
-char	*ft_convert_base(char *nbr, char *base_from, char *base_to)
+char	*ft_itoa_base(long long num, char *base_to, int cnt, int sign)
 {
-	int num;
-	char *answer;
+	int to_len;
+	char	*string;
+	long long replace;
 
-	num = ft_atoi_base(nbr, base_from);
-	answer = ft_itoa_base(nbr, base_to);
-
-	
-
+	replace = num;
+	to_len = check_base(base_to);
+	while (num > 0)
+	{
+		num /= to_len;
+		cnt++;
+	}
+	string = (char *)malloc(sizeof(char) * (cnt + 1));
+	if (sign == 1)
+		string[0] = '-';
+	string[cnt] = 0;
+	while (cnt - sign > 0)
+	{
+		string[cnt - 1] = base_to[replace % to_len];
+		replace /= to_len;
+		--cnt;
+	}
+	return (string);
 }
 
+char	*ft_convert_base(char *nbr, char *base_from, char *base_to)
+{
+	int cnt;
+	int sign;
+	char	*answer;
+	long long	changed_nbr;
+	long long	replace;
+
+	sign = 0;
+	cnt = 0;
+	changed_nbr = (long long)(ft_atoi_base(nbr, base_from));
+	replace = changed_nbr;
+	if (!exception(base_from, base_to))
+		return (0);
+	if (changed_nbr < 0)
+	{
+		changed_nbr *= -1;
+		replace *= -1;
+		cnt += 1;
+		sign = 1;
+	}
+	answer = ft_itoa_base(replace, base_to, cnt, sign);
+	return (answer);
+}

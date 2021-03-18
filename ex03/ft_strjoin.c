@@ -6,15 +6,12 @@
 /*   By: hchd <hchd@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 21:19:00 by hchd              #+#    #+#             */
-/*   Updated: 2021/03/16 01:36:18 by hchd             ###   ########.fr       */
+/*   Updated: 2021/03/18 00:36:33 by hchd             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 
-int	g_final_sep;
-
-g_final_sep = 0;
 
 int	ft_strlen(char *str)
 {
@@ -29,10 +26,12 @@ int	ft_strlen(char *str)
 	return (len);
 }
 
-void	ft_strcat_sep(char *dest, char *src, char *sep)
+void	ft_strcat_sep(char *dest, char *src, char *sep, int *end, int size)
 {
+	/*
 	if (!*src)
 		return ;
+		*/
 	while (*dest)
 		dest++;
 	while (*src)
@@ -41,30 +40,39 @@ void	ft_strcat_sep(char *dest, char *src, char *sep)
 		++dest;
 		++src;
 	}
-	while (*sep)
+	if (*end < size - 1 )
 	{
-		*dest = *sep;
-		++dest;
-		++sep;
+		while (*sep)
+		{
+			*dest = *sep;
+			++dest;
+			++sep;
+		}
 	}
+	*end += 1;
+}
+
+char	*exception(void)
+{
+	char *array;
+
+	array = (char *)malloc(1);
+	array[0] = 0;
+	return (array);
 }
 
 char *ft_strjoin(int size, char **strs, char *sep)
 {
 	int	i;
-	char	*to_find;
-	char	*sum;
-	char	*array;
+	int	end;
 	int	len;
+	char	*array;
 
 	i = 0;
 	len = 0;
+	end = 0;
 	if (size <= 0)
-	{
-		array = (char *)malloc(1);
-		array[0] = 0;
-		return (array);
-	}
+		return (exception());
 	while (i < size)
 	{
 		len += ft_strlen(strs[i]);
@@ -76,7 +84,7 @@ char *ft_strjoin(int size, char **strs, char *sep)
 	i = 0;
 	while (i < size)
 	{
-		ft_strcat_sep(array, strs[i], sep);
+		ft_strcat_sep(array, strs[i], sep, &end, size);
 		i++;
 	}
 	return (array);
