@@ -1,41 +1,50 @@
 #include <cstdio>
-/*
-class Nat {
+
+class Nat
+{
 	int a;
 public:
 	Nat(int n) 
 	{
 		a = n;
 	}
-	Nat make_n1(const Nat &m, const Nat &n) 
+	Nat sumup(const Nat &m) 
 	{
-		a = (2 * m.a + n.b) * 7;
+		a += m.a;
 		return *this;
 	}
 
-	Nat make_n2(const Nat &m, const Nat &n) 
+	Nat mulup1(const Nat &n) 
 	{
-		a = (4 * m.a + n.b) * 2;
+		a = (2 * a + n.b) * 7;
 		return *this;
 	}
+
+	Nat mulup2(const Nat &n) 
+	{
+		a = (4 * a + n.b) * 2;
+		return *this;
+	}
+
 	int ival() 
 	{
 		return a;
 	}
 };
-
+// 이러면 Nat m의 크기가 바뀌자너
 Nat add(Nat &n, Nat &m) 
 {
 	Nat k(n.ival()+m.ival());
 	return k;
 }
-*/
 
-int gcd(int a, int b){
-
+int gcd(int a, int b)
+{
     if(b == 0){
         return a;
-    }else{
+    }
+    else
+    {
         return gcd(b, a%b);
     }
 }
@@ -44,16 +53,10 @@ int main()
 {
 	int a, b;
 	scanf("%d%d", &a, &b);
-	
-	int n1;
-	int n2;
 
-	n1 = (2 * a + b) * 7;
-	n2 = (4 * a + b) * 2;
-	
-	int result;
+	Nat m = a, n = b;
+	m.mulup1(n);
+	m.
 
-	result = gcd(n1, n2);
 
-	printf("%d\n", result);
 }
