@@ -11,13 +11,29 @@ class Board: public vector<vector<int> > // 여기서 점도 print도 하구, bo
 	     // 왜 vector<vector<int>> 의 subclass 일까?? 
 {
 private:
+	int _x;
+	int _y;
 	int _width, _height;
-	vector<int> _numbers;
+	vector<vector<int> > _numbers;
 public:
 	Board(int width, int height) : _width(width), _height(height) {}
-	Board(vector<int> numbers) : _numbers(numbers) {}
+	Board(vector<vector<int> > numbers) : _numbers(numbers) {}
 	void mark();
+	void point();
 };
+
+void Board::point()
+{
+	_x = 0;
+	_y = 0;
+	for (int i = 0; i < size() ; i++)
+	{
+		if (_numbers[0][i] % 2 == 0)
+			_x++;
+		else
+			_y++;
+	}
+}
 
 void Board::mark()
 {
@@ -25,15 +41,15 @@ void Board::mark()
 
 	int cnt;
 
-	int max = *max_element(_numbers.begin(), _numbers.end());
+	int max = *max_element(_numbers[1].begin(), _numbers[1].end());
 	char prev = buf.fill('-');
 	buf << "+-" << setw(max) << "" << "-+" << endl;
 	char pres = buf.fill(' ');
 	for (int i = 0 ; i < _height ; i++)
 	{
-		if (i == _numbers[1])
+		if (i == _numbers[1][1])
 		{
-			buf << "| " << setw(_numbers[0]) << " |" << endl;
+			buf << "| " << setw(_numbers[1]) << " |" << endl;
 		}
 		else
 		{
@@ -53,18 +69,16 @@ int main()
 	int num;
 	int x = 0;
 	int y = 0;
-	vector<int> numbers;
+	vector<<int> >numbers;
 
 	cin >> width >> height;
-	Board(width, height);
+	numbers[0].push_back(width);
+	numbers[0].push_back(height);
+
 	while (cin >> num)
 	{
-		if (num % 2 == 0)
-			x++;
-		else
-			y++;
+		numbers[1].push_back(num);
 	}
-	numbers.push_back(x);
-	numbers.push_back(y);
 	Board(numbers);
+
 }
