@@ -3,27 +3,34 @@
 class Nat
 {
 	int a;
+	int b;
+	int c;
+	
 public:
 	Nat(int n) 
 	{
 		a = n;
 	}
-	Nat sumup(const Nat &m) 
+	Nat mulup(const Nat &q) 
 	{
-		a += m.a;
+		a = a * q.a;
 		return *this;
 	}
-
-	Nat mulup1(const Nat &n) 
+	Nat gcd( Nat &r)
 	{
-		a = (2 * a + n.b) * 7;
-		return *this;
-	}
-
-	Nat mulup2(const Nat &n) 
-	{
-		a = (4 * a + n.b) * 2;
-		return *this;
+	    int tmp, n;
+	 
+	    if(a<r.a){
+		tmp = a;
+		a = r.a;
+		r.a = tmp;
+	    }
+	    while(r.a!=0){
+		n = a % r.a;
+		a = r.a;
+		r.a = n;
+	    }
+	    return *this;
 	}
 
 	int ival() 
@@ -31,11 +38,18 @@ public:
 		return a;
 	}
 };
-// 이러면 Nat m의 크기가 바뀌자너
-Nat add(Nat &n, Nat &m) 
+
+Nat gcd(Nat &n, Nat &m)
 {
-	Nat k(n.ival()+m.ival());
-	return k;
+	if (n.ival() == 0)
+		return m;
+	Nat rem = m.ival() % n.ival();
+	return gcd(rem, n);
+}
+
+Nat add(Nat &n, Nat &m) {
+    Nat k(n.ival() + m.ival());
+    return k;
 }
 
 int gcd(int a, int b)
@@ -54,9 +68,16 @@ int main()
 	int a, b;
 	scanf("%d%d", &a, &b);
 
-	Nat m = a, n = b;
-	m.mulup1(n);
-	m.
+	Nat m = a, n = b, two = 2, seven = 7;
+	m.mulup(two);
+	Nat p = add(m, n);
+	m.mulup(two);
+	Nat q = add(m, n);
+	p.mulup(seven);
+	q.mulup(two);
+	Nat r = gcd(p, q);
 
-
-}
+	//printf("%d\n", p.ival());
+	//printf("%d\n", q.ival());
+	printf("%d\n", r.ival());
+} 

@@ -2,90 +2,65 @@
 
 using namespace std;
 
-class Nat
+class Nat 
 {
-public:
-    void set(int input1, int input2);
-    void sum();
-    void GCD();
-   
-private:
-    int num1;
-    int num2;
-    int G;
-};
-
-class Nat {
 	int a;
-	public:
-	Nat(int n) {
+	int b;
+	int G;
+public:
+	Nat(int n) 
+	{
 	a = n;
 	}
+
 	Nat operator +=(Nat &m) 
 	{
 	a += m.a;
 	return *this;
 	}
-	int ival() {
-	return a;
+
+	int ival() const
+	{
+		return a;
+	}
+
+	void set_ival(int i)
+	{
+		a = i;
 	}
 };
 
-	ostream& operator <<(ostream &out, Nat &n) 
+
+	Nat operator +(const Nat &n, const Nat &m)
 	{
-	return out << n.ival();
+		Nat k(n.ival() + m.ival());
+		return k;
 	}
+
+	Nat operator ^(const Nat &n, const Nat &m)
+	{
+		if (n.ival() == 0)
+			return m;
+		Nat rem(m.ival() % n.ival());
+		return rem ^ n;
+	}
+
+	ostream& operator << (ostream &out, const Nat &n) 
+	{
+	return out << n.ival() << endl;
+	}
+
 	istream& operator >> (istream& in, Nat &n)
 	{
-		in >> n;
-
-		return in;
+		int i = 0;
+		in >> i;
+		n.set_ival(i);
+ 		return in;
 	}
-	
-
-void Nat::set(int input1, int input2)
-{
-    num1 = input1;
-    num2 = input2;
-}
-
-void Nat::sum()
-{
-    cout << num1 + num2 << " ";
-}
-
-void Nat::GCD()
-{
-    int a = num1;
-    int b = num2;
-    int c = 0;
-
-    if (a < b)
-    {
-        int temp = a;
-        a = b;
-        b = temp;
-    }
-
-    while (b != 0)
-    {
-        c = a % b;
-        a = b;
-        b = c;
-    }
-    G = a;
-    cout << G;
-}
 
 int main()
 {
-    Nat A;
-    int a = 0, b = 0;
-    cin >> a >> b;
-
-    A.set(a, b);
-    A.sum();
-    A.GCD();
-
-    return 0;
+	Nat a(0), b(0);
+	cin >> a >> b;
+	cout << a + b << " " << a << " " << (a ^ b) << endl;
 }
