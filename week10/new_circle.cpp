@@ -51,7 +51,7 @@ int main()
 
 	cin >> n;
 
-	for(int i = 0 ; i < n; i++)
+	for(int i = 0 ; i < n + 1; i++)
 	{
 		cin >> info;
 		if (info == 'C')
@@ -74,9 +74,9 @@ int main()
 			collection.push_back(&t);
 		}
 	}
-	for (int i = 0; i < n ; i++)
+	for (int i = 0; i < n + 1 ; i++)
 	{
-		sum += collection[i]->area(collection);
+		sum += collection[i] -> area(collection);
 	}
 	cout << fixed << setprecision(2) << sum << endl;
 }
