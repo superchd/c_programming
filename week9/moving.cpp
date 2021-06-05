@@ -21,15 +21,15 @@ public:
 class MovingPoint: public Point
 {
 private:
-	int p, q;
-	vector<int> nums;
+	int _p, _q;
+	vector<int> _nums;
 public:
-    MovingPoint(int x = 0, int y = 0): Point(x, y) {}
-    MovingPoint(vector<int> a) : nums(a) {}
-    void mark(int x, int y);
+	MovingPoint() : MovingPoint({0}, 0 , 0) {}
+    MovingPoint(const vector<int> nums, int x , int y ): MovingPoint(_nums, x, y) {}
+    void mark(void);
     void calculate();
-    int get_p() {return p;}
-    int get_q() {return q;}
+    int p() { return _p;}
+    int q() { return _q;}
 };
 
 ostream& operator <<(ostream& out, MovingPoint p) 
@@ -38,7 +38,7 @@ ostream& operator <<(ostream& out, MovingPoint p)
 }
 // Board라는 클래스가 왜 필요한지를 모르겠다 ............
 
-void MovingPoint::mark(int a, int b)
+void MovingPoint::mark(void)
 {
 	ostringstream buf;
 
@@ -53,8 +53,8 @@ void MovingPoint::mark(int a, int b)
 
 	for (int i = 0; i < y() ; i++)
 	{
-		if (i == b - 1)
-			buf << "| " << setw(a) << "." << setw(x() - a) << " |" << endl;
+		if (i == q() - 1)
+			buf << "| " << setw(p()) << "." << setw(x() - p()) << " |" << endl;
 		else
 			buf << "| " << setw(x()) << " |" << endl;
 	}
@@ -66,14 +66,14 @@ void MovingPoint::mark(int a, int b)
 
 void MovingPoint::calculate()
 {
-	p = 0;
-	q = 0;
-	for (int i = 0; i < nums.size() ; i++)
+	_p = 0;
+	_q = 0;
+	for (int i = 0; i < _nums.size() ; i++)
 	{
-		if (nums[i] % 2 == 0)
-			p++;
+		if (_nums[i] % 2 == 0)
+			_p++;
 		else
-			q++;
+			_q++;
 	}
 }
 
@@ -81,15 +81,15 @@ int main()
 {
 	int x;
 	int y;
+	int z;
 	vector<int> nums;
-
+	MovingPoint pt;
 	cin >> x >> y;
-	MovingPoint pt(x, y);
-	while (cin >> x)
+	while (cin >> z)
 	{
-		nums.push_back(x);
+		nums.push_back(z);
 	}
-	pt = MovingPoint(nums);
+	pt = MovingPoint(nums, x, y);
 	pt.calculate();
-	pt.mark(pt.get_p(), pt.get_q());
+	pt.mark();
 }
