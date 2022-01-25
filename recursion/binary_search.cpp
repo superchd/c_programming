@@ -16,16 +16,15 @@ int	binary(int start, int end, int my_goal){
 
 	if (start > end) {
 		return (-1);}
-	else if (my_goal == my_arr[start]) {
-		return (start);}
-	else if (my_goal == my_arr[end]) {
-		return (end);}
-	else {
-		if (my_goal > my_arr[mid]) {binary(mid, end, my_goal);}
-		else 			   {binary(start, mid, my_goal);} 
+	else if (start == end){
+		if (my_arr[start] == my_goal) {return (start);}
+		else			      {return (-1);}
 	}
-	return start;
-
+	else {
+		if (my_goal > my_arr[mid]) {return binary(mid + 1, end, my_goal);}
+		else 			   {return binary(start, mid, my_goal);} 
+	}
+	//어찌됬든 재귀함수에서 나오면서또 return 을 하게 될텐데 이게 문제란 말이지 
 }
 
 void	my_input(void){
